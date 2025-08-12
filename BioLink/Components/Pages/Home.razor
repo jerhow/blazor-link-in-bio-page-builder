@@ -4,4 +4,33 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+<hr />
+
+@if (links is not null)
+{
+    <div class="link-list">
+        @foreach (var link in links)
+        {
+            <div class="link-card">
+                <h3>@link.Title</h3>
+                <p>@link.Url</p>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<BioLinkItem> links = new()
+    {
+        new() { Id = 1, Title = "My Portfolio", Url = "https://some-portfolio.com" },
+        new() { Id = 2, Title = "LinkedIn Profile", Url = "https://linkedin.com/in/some-profile" },
+        new() { Id = 3, Title = "GitHub Profile", Url = "https://github.com/some-username" }
+    };
+
+    public class BioLinkItem
+    {
+        public int Id { get; set; }
+        public string? Title { get; set; }
+        public string? Url { get; set; }
+    }
+}

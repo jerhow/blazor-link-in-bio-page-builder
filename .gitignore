@@ -1,0 +1,64 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# User or Visual Studio specific files
+.vs/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+*.ncb
+*.cache
+*.ilk
+*.log
+*.pdb
+*.tlog
+*.lastbuildstate
+
+# NuGet packages
+*.nupkg
+# Uncomment if necessary:
+# packages/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# MacOS files
+.DS_Store
+
+# Additional files
+# Local configuration files
+*.local.json
+
+# Other possible files
+*_flymake.*
+
+# Static web assets
+wwwroot/lib/
+
+# Secrets
+/secrets.json
+appsettings.*.json
+!appsettings.Development.json

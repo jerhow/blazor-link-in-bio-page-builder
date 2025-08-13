@@ -18,11 +18,7 @@
     <div class="link-list">
         @foreach (var link in links)
         {
-            <div class="link-card">
-                <h3>@link.Title</h3>
-                <p>@link.Url</p>
-                <button @onclick="() => DeleteLink(link.Id)" class="btn btn-danger btn-sm">Delete</button>
-            </div>
+            <LinkCard Link="@link" OnDelete="DeleteLink" />
         }
     </div>
 }
@@ -68,15 +64,5 @@
         {
             links.Remove(linkToRemove);
         }
-    }
-
-    /// <summary>
-    /// Represents a bio link item.
-    /// </summary>
-    public class BioLinkItem
-    {
-        public int Id { get; set; }
-        public string? Title { get; set; }
-        public string? Url { get; set; }
     }
 }

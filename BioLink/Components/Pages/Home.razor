@@ -21,6 +21,7 @@
             <div class="link-card">
                 <h3>@link.Title</h3>
                 <p>@link.Url</p>
+                <button @onclick="() => DeleteLink(link.Id)" class="btn btn-danger btn-sm">Delete</button>
             </div>
         }
     </div>
@@ -55,6 +56,18 @@
 
         // Reset the form by creating a new object for the next entry
         newLink = new();
+    }
+
+    /// <summary>
+    /// Deletes a link from the list.
+    /// </summary>
+    private void DeleteLink(int idToDelete)
+    {
+        var linkToRemove = links.FirstOrDefault(l => l.Id == idToDelete);
+        if (linkToRemove is not null)
+        {
+            links.Remove(linkToRemove);
+        }
     }
 
     /// <summary>

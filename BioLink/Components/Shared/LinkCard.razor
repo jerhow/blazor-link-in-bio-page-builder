@@ -1,25 +1,72 @@
 <div class="link-card">
-    @if (Link is not null)
+    @if (isEditing)
     {
-        <h3>@Link.Title</h3>
-        <p>@Link.Url</p>
-        <button @onclick="OnDeleteClicked" class="btn btn-danger btn-sm">Delete</button>
+        <input @bind="editedLink.Title" type="text" class="form-control mb-2" placeholder="Title" />
+        <input @bind="editedLink.Url" type="text" class="form-control mb-2" placeholder="URL" />
+        <button @onclick="SaveChanges" class="btn btn-success btn-sm">Save</button>
+        <button @onclick="() => isEditing = false" class="btn btn-secondary btn-sm">Cancel</button>
+    }
+    else
+    {
+        @if (Link is not null)
+        {
+            <h3>@Link.Title</h3>
+            <p>@Link.Url</p>
+            <button @onclick="StartEditing" class="btn btn-secondary btn-sm">Edit</button>
+            <button @onclick="OnDeleteClicked" class="btn btn-danger btn-sm">Delete</button>
+        }
     }
 </div>
 
 @code {
     [Parameter]
-    public BioLinkItem? Link { get; set; }
+    public BioLinkItem? Link { get; set; } // The link item being edited
 
     [Parameter]
-    public EventCallback<int> OnDelete { get; set; }
+    public EventCallback<int> OnDelete { get; set; } // Parameter for the parent's delete method
+
+    [Parameter]
+    public EventCallback<BioLinkItem> OnUpdate { get; set; } // Parameter for the parent's update method
+
+    private bool isEditing = false;
+    private BioLinkItem editedLink = new();
 
     /// <summary>
-    /// Handles the delete button click event.
+    /// Starts editing the link
+    /// </summary>
+    private void StartEditing()
+    {
+        if (Link is null) return;
+
+        editedLink = new BioLinkItem // Create a copy of the link for editing, that we can discard if needed
+        {
+            Id = Link.Id,
+            Title = Link.Title,
+            Url = Link.Url
+        };
+
+        isEditing = true;
+    }
+
+    /// <summary>
+    /// Saves the changes made to the link
+    /// </summary>
+    private async Task SaveChanges()
+    {
+        if (editedLink is not null)
+        {
+            await OnUpdate.InvokeAsync(editedLink);
+        }
+        
+        isEditing = false; // Exit edit mode
+    }
+
+    /// <summary>
+    /// Delete the link
     /// </summary>
     private async Task OnDeleteClicked()
     {
-        if(Link is not null)
+        if (Link is not null)
         {
             await OnDelete.InvokeAsync(Link.Id);
         }
